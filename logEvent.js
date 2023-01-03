@@ -7,7 +7,7 @@ const fs = require('fs');
 const { builtinModules } = require('module');
 const fsPromises = require('fs').promises;
 
-const logEvents = async (message) => {
+const logEvents = async (message, logName) => {
     const dateTime = `${format(new Date(), 'yyyy|MM|dd\tHH:mm:ss')}`;
     const logItem = `\n${dateTime}\t${uuid()}\t${message}`;
     console.log(logItem);
@@ -16,7 +16,7 @@ const logEvents = async (message) => {
         if(!fs.existsSync(path.join(__dirname, 'logs'))){
             await fsPromises.mkdir(path.join(__dirname, 'logs'))
         }
-        await fsPromises.appendFile(path.join(__dirname, 'logs', 'Event.txt'), logItem)
+        await fsPromises.appendFile(path.join(__dirname, 'logs', logName), logItem)
         // catching errors
     } catch (error) {
        console.error(error) 
